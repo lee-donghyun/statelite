@@ -1,16 +1,4 @@
-import { useSyncExternalStore } from "react";
-
-type Key = string;
-type Listener = () => void;
-type Subscriber = (listender: Listener) => () => void;
-
-type Atom<T> = {
-  key: Key;
-  value: T;
-  subscribe: Subscriber;
-  getSnapshot: () => T;
-  update: (getNextValue: (prev: T) => T) => void;
-};
+import { Atom, Key, Listener } from "./types";
 
 const STORE: Record<string, unknown> = {};
 const LISTENERS: Record<string, Listener[]> = {};
@@ -40,12 +28,4 @@ export const createAtom = <T>(initialValue: T): Atom<T> => {
     subscribe: createSubscribe(key),
     update: createUpdate(key),
   };
-};
-
-export const useAtom = <T>(atom: Atom<T>) => {
-  return useSyncExternalStore(atom.subscribe, atom.getSnapshot);
-};
-
-export const useSetAtom = <T>(atom: Atom<T>) => {
-  return atom.update;
 };

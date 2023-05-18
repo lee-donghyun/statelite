@@ -1,19 +1,17 @@
-import { createAtom } from "./statelite/core";
-import { useAtom, useSetAtom } from "./statelite/react";
+# statelite
 
-export const App = () => {
-  return (
-    <div>
-      <h1>vite</h1>
-      <A />
-      <B />
-    </div>
-  );
-};
+Lightweight state-management solution. Based on subscriber listener pattern.
 
+### Vanilla
+
+```ts
 const countAtom = createAtom(0);
 const cleanup = countAtom.subscribe(() => console.log(countAtom.getSnapshot()));
+```
 
+### React.js
+
+```tsx
 const A = () => {
   const count = useAtom(countAtom);
 
@@ -35,3 +33,4 @@ const B = () => {
     </div>
   );
 };
+```
