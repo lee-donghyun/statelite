@@ -1,7 +1,7 @@
 import { Atom, Key, Listener } from "./types";
 
-const STORE: Record<string, unknown> = {};
-const LISTENERS: Record<string, Listener[]> = {};
+const STORE: Record<Key, unknown> = {};
+const LISTENERS: Record<Key, Listener[]> = {};
 
 const createSubscribe = (key: Key) => (listener: Listener) => {
   LISTENERS[key].push(listener);
@@ -18,7 +18,7 @@ const createUpdate =
   };
 
 export const createAtom = <T>(initialValue: T): Atom<T> => {
-  const key = "" + Date.now() + Math.random();
+  const key = Symbol();
   STORE[key] = initialValue;
   LISTENERS[key] = [];
   return {

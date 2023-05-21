@@ -1,4 +1,4 @@
-export type Key = string;
+export type Key = symbol;
 export type Listener = () => void;
 export type Subscriber = (listener: Listener) => () => void;
 export type Atom<T> = {
